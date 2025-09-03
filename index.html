@@ -3,60 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GASTRONÓMICO 2025</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://images.icon-icons.com/1151/PNG/512/1486505264-food-fork-kitchen-knife-meanns-restaurant_81404.png">
-
-    <!-- Librería para convertir HTML a Imagen -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <title>SECRETARÍA DE DESARROLLO ECONÓMICO Y COMPETITIVIDAD</title>
     <style>
-        /* --- Estilos Generales --- */
+        /* Estilos Generales */
         :root {
-            --color-primario: #3b82f6;
-            --color-secundario: #1e40af;
-            --color-texto-claro: #f8fafc;
-            --color-texto-oscuro: #1e293b;
-            --color-fondo-tarjeta: rgba(255, 255, 255, 0.98);
-            --sombra-tarjeta: 0 10px 25px rgba(0, 0, 0, 0.1);
-            --radio-borde: 15px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --background-color: #f4f7f6;
+            --card-background-color: #ffffff;
+            --text-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --accent-color: #007bff;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--color-texto-oscuro);
-            background: linear-gradient(135deg, #141e30, #2b32b2);
-            background-attachment: fixed;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
             padding: 2rem;
-            min-height: 100vh;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
 
-        /* --- Contenedor Principal --- */
+        /* Contenedor Principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: var(--radio-borde);
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* --- Encabezado --- */
-        .header {
+        /* Encabezado */
+        header {
             text-align: center;
-            margin-bottom: 2rem;
-            color: var(--color-texto-claro);
+            margin-bottom: 3rem;
         }
-        
+
         .header-logo {
             width: 320px;
             height: 180px;
@@ -65,814 +42,123 @@
             margin: 0 auto 1.5rem;
             display: block;
             background-color: rgba(255,255,255,0.2);
-            border: 3px solid rgba(255,255,255,0.7);
+            border: 3px solid rgba(9, 0, 44, 0.911);
             box-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
 
-        .header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            color: #cbd5e1;
-            margin-bottom: 1.5rem;
-        }
-
-        /* --- Buscador --- */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin: 0 auto 2rem;
-            max-width: 500px;
-        }
-
-        #search-input {
-            width: 100%;
-            padding: 0.75rem 1.25rem;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 50px;
-            background-color: rgba(255, 255, 255, 0.15);
-            color: var(--color-texto-claro);
-            font-size: 1rem;
-            font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s ease;
-        }
-        
-        #search-input::placeholder { color: #bdc6e5; }
-        #search-input:focus {
-            outline: none;
-            background-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-        }
-
-        /* --- Navegación de Días --- */
-        .day-nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .day-btn {
-            background-color: transparent;
-            color: var(--color-texto-claro);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .day-btn:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-color: var(--color-texto-claro);
-        }
-
-        .day-btn.active {
-            background-color: var(--color-texto-claro);
-            color: var(--color-secundario);
-            border-color: var(--color-texto-claro);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-        }
-
-        /* --- Contenido de la Programación --- */
-        .schedule-content {
-            display: none;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .schedule-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .schedule-card {
-            background-color: var(--color-fondo-tarjeta);
-            border-radius: var(--radio-borde);
-            padding: 2rem;
-            box-shadow: var(--sombra-tarjeta);
-            position: relative;
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .schedule-card h2 {
-            font-size: 2rem;
-            color: var(--color-primario);
-            flex-grow: 1;
-            text-align: center;
-        }
-        
-        .download-btn {
-            background-color: #a4fa9c;
-            color: var(--color-secundario);
-            border: none;
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        
-        .download-btn:hover {
-            background-color: #e2e8f0;
-            transform: scale(1.05);
-        }
-
-        .turn-section {
-            margin-bottom: 2.5rem;
-        }
-
-        .turn-section:last-child {
-            margin-bottom: 0;
-        }
-        
-        .turn-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            padding: 0.5rem 1.5rem;
-            display: inline-block;
-            border-radius: 50px;
-            font-weight: 700;
-        }
-        
-        /* Cápsulas de colores para los turnos */
-        .turn-1 { background-color: #fffbeb; color: #b45309; }
-        .turn-2 { background-color: #eff6ff; color: #1e40af; }
-        .turn-3 { background-color: #fef2f2; color: #b91c1c; }
-
-
-        .schedule-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-        }
-
-        .schedule-table th, .schedule-table td {
-            padding: 0.8rem 1rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .schedule-table th {
-            background-color: #f1f5f9;
-            font-weight: 600;
-            color: var(--color-secundario);
-        }
-
-        .schedule-table tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
-
-        .schedule-table tr:hover {
-            background-color: #e0f2fe;
-        }
-        
-        /* --- Modal (Popup) de Búsqueda --- */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s;
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.95);
-            background-color: #fff;
-            padding: 2.5rem;
-            border-radius: var(--radio-borde);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            width: 90%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            animation: slideIn 0.4s ease-out forwards;
-        }
-        
-        @keyframes slideIn {
-            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            color: #aaa;
+        header h1 {
             font-size: 2.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        
-        .modal-close:hover { color: #333; }
-        
-        #modal-results h3 {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            color: var(--color-secundario);
-        }
-        
-        #modal-results-list {
-            list-style-type: none;
-        }
-        
-        #modal-results-list li {
-            background-color: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 10px;
-        }
-        
-        #modal-results-list .result-day {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--color-primario);
-            margin-bottom: 0.5rem;
-        }
-        
-        #modal-results-list .result-turn {
-            font-weight: 600;
-            color: #475569;
-            margin-bottom: 0.25rem;
+            margin: 0;
         }
 
+        /* Cuadrícula de Tarjetas */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 0;
+            list-style: none;
+        }
 
-        /* --- Responsividad --- */
+        /* Estilo de las Tarjetas */
+        .card {
+            background-color: var(--card-background-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px var(--shadow-color);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            padding: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+            opacity: 0.7;
+        }
+
+                /* --- Responsividad --- */
         @media (max-width: 768px) {
-            body { padding: 1rem; }
             .container { padding: 0.4rem; }
             .header-logo { width: 220px; height: auto; }
             .header h1 { font-size: 1.1rem; }
-            .day-nav { gap: 0.5rem; }
-            .day-btn { padding: 0.6rem 1rem; font-size: 0.9rem; }
-            .schedule-card { padding: 1.5rem 0;}
-            .card-header { flex-direction: column; gap: 1rem; }
-            .schedule-card h2 { font-size: 1.5rem; }
-            .schedule-table-container { overflow-x: auto; }
-            .modal-content { width: 95%; padding: 2rem 1.5rem;}
         }
-
     </style>
 </head>
 <body>
 
     <div class="container">
-        <header class="header">
-             <!-- CAMBIA 'placeholder.jpg' POR LA URL DE TU IMAGEN -->
+        <header>
             <img src="https://www.cauca.gov.co/SiteAssets/GobernacionCauca/assets/img/ImgGobCauca/inconosGobernacionHD/Logos-Gobernacio%CC%81n-del-Cauca-horizontal.png" alt="Logo del Evento" class="header-logo">
-            <h1>Programación de equipo SDEC</h1>
-            <p>PABELLON DE TURISMO - SEPTIEMBRE 2025</p>
-            <div class="search-container">
-                <input type="text" id="search-input" placeholder="Buscar por nombre del encargado...">
-            </div>
+            <h1>SECRETARÍA DE DESARROLLO ECONÓMICO Y COMPETITIVIDAD</h1>
         </header>
 
-        <nav class="day-nav">
-            <button class="day-btn active" data-day="miercoles">MIÉRCOLES 3</button>
-            <button class="day-btn" data-day="jueves">JUEVES 4</button>
-            <button class="day-btn" data-day="viernes">VIERNES 5</button>
-            <button class="day-btn" data-day="sabado">SÁBADO 6</button>
-            <button class="day-btn" data-day="domingo">DOMINGO 7</button>
-        </nav>
-
         <main>
-            <!-- MIÉRCOLES 3 -->
-            <section id="miercoles" class="schedule-content active">
-                <div class="schedule-card">
-                    <div class="card-header">
-                        <h2>MIÉRCOLES 3 / SEPTIEMBRE</h2>
-                        <button class="download-btn">⏬Descargar programación</button>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-1">TURNO 1: 2:00 PM - 7:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Fortalecimiento</td><td>Jarvi Banguero</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Minería</td><td>Jose Fernando Saldaña</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Fortalecimiento</td><td>Carlos Betancourt</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Juan Diego Aza</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - montaje de impresos - adecuación punto Cauca</td><td>Comercialización</td><td>Javier Mera</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>Fortalecimiento</td><td>Luis Acosta</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>CTeI</td><td>Jarvi Molano</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>CTeI</td><td>David Mejia</td></tr>
-                                    <tr><td>Pabellón</td><td>Logística - transporte de pendones, letras, marimba y tambor</td><td>Ruta 359</td><td>Jorge Gueche</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-2">TURNO 2: 5:00 PM - 9:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Pabellón</td><td>Apoyo entrega vigilante</td><td>Turismo</td><td>Julian Cadavid</td></tr>
-                                    <tr><td>Pabellón</td><td>Apoyo entrega vigilante</td><td>Turismo</td><td>Daniel Añasco</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- JUEVES 4 -->
-            <section id="jueves" class="schedule-content">
-                <div class="schedule-card">
-                     <div class="card-header">
-                        <h2>JUEVES 4 / SEPTIEMBRE</h2>
-                        <button class="download-btn">⏬Descargar programación</button>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-1">TURNO 1: 9:00 AM - 01:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Proyecto de Fortalecimiento</td><td>José Enriquez</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Comercialización</td><td>María Inés Sánchez</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Proyecto de Fortalecimiento</td><td>Viviana Lopez</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Comercialización</td><td>Andres Felipe Samboni Perez</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Comercialización</td><td>Daniela Alejandra Mera Lopez</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Claudia Lopez</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Jhohana Saavedra</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Minería</td><td>JOHN JAIRO COLLAZOS PINZÓN</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Minería</td><td>LUIS ALFONSO FERNÁNDEZ BURBANO</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Comercialización</td><td>Sebastian Restrepo</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td>Ruta 360</td><td>Eimy Vidal</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td>Minería</td><td>MONICA REGINA ORDOÑEZ ERAZO</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                     <div class="turn-section">
-                        <h3 class="turn-title turn-2">TURNO 2: 01:00 PM - 05:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Comercialización</td><td>Sebastian Restrepo</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Competitividad</td><td>Juliana Jimenez</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Proyecto de Fortalecimiento</td><td>Yicel Rodriguez</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Proyecto de Fortalecimiento</td><td>Jorge Gueche</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Proyecto de Fortalecimiento</td><td>Viviana Lopez</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Empleo</td><td>Jeni Ruiz</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Juan Jose Hurtado</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Competitividad</td><td>Francy Riascos</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Competitividad</td><td>Fernanda Alarcon</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Competitividad</td><td>Adriana Bolaños</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td>Minería</td><td>DORA ELIZABETH CERÓN PARRA</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td>Minería</td><td>LUZ YAMILET GALINDEZ GUERRERO</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                     <div class="turn-section">
-                        <h3 class="turn-title turn-3">TURNO 3: 05:00 PM - 09:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Proyecto de Fortalecimiento</td><td>Jorge Gueche</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Comercialización</td><td>Andres Muñoz Simmonds</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Comercialización</td><td>José Fernando Ruíz López</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>CTI</td><td>Jarvi Molano</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Competitividad</td><td>Lilian Keline Bambague</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Salir Yamile Obando</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Minería</td><td>JOSE FERNANDO SALDAÑA MOSQUERA</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Comercialización</td><td>Luz Elena Laverde Urrea</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>CTI</td><td>David Mejia</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Comercialización</td><td>Javier Mariano Mera Rivera</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>Minería</td><td>FRANCISCO JOSE IDROBO IDROBO</td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>Competitividad</td><td>Juan Jose Hurtado</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- VIERNES 5 -->
-            <section id="viernes" class="schedule-content">
-                 <div class="schedule-card">
-                    <div class="card-header">
-                        <h2>VIERNES 5 / SEPTIEMBRE</h2>
-                        <button class="download-btn">⏬Descargar programación</button>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-1">TURNO 1: 9:00 AM - 01:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Comercialización</td><td>Julio Pineda</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Comercialización</td><td>María Fernanda Montenegro Mera</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Proyecto de Fortalecimiento</td><td>Angie Mosquera</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Minería</td><td>MONICA GOMEZ SANDOVAL</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Ruta 360</td><td>Liliana Perea</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Proyecto de Fortalecimiento</td><td>Mayra Hinestroza</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Proyecto de Fortalecimiento</td><td>Yicel Rodriguez</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Comercialización</td><td>María Inés Sánchez</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Viviana Lopez</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Ruta 360</td><td>Silvana Rosero</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Carlos Betancourt</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Lucy Pillimue</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Ruta 360</td><td>Eimy Vidal</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Paola Mejia</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td>Competitividad</td><td>Juliana Jimenez</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-2">TURNO 2: 01:00 PM - 05:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Proyecto de Fortalecimiento</td><td>Viviana Lopez</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Minería</td><td>MONICA GOMEZ SANDOVAL</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Proyecto de Fortalecimiento</td><td>Mayra Hinestroza</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>CTI</td><td>David Mejia</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Minería</td><td>DORA ELIZABETH CERÓN PARRA</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Comercialización</td><td>Daniela Choco</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Comercialización</td><td>María Fernanda Montenegro Mera</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Ruta 360</td><td>Liliana Perea</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>CTI</td><td>Jarvi Molano</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Minería</td><td>FRANCISCO JOSE IDROBO IDROBO</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>José Enriquez</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Jorge Gueche</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Minería</td><td>ANDRES JOSE GOMEZ</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Comercialización</td><td>José Fernando Ruíz López</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-3">TURNO 3: 05:00 PM - 09:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Comercialización</td><td>Juan Diego Aza Arcos</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Empleo</td><td>Jeni Ruiz</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>CTI</td><td>Gladys Bastidas</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Competitividad</td><td>Marcela Betancourth</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Competitividad</td><td>Claudia Lopez</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Jhohana Saavedra</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Minería</td><td>LUZ YAMILET GALINDEZ GUERRERO</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Minería</td><td>JOSE FERNANDO SALDAÑA MOSQUERA</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Competitividad</td><td>Juan Jose Hurtado</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Jorge Gueche</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Comercialización</td><td>Andres Felipe Samboni Perez</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Comercialización</td><td>Javier Mariano Mera Rivera</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Turismo</td><td>Daniel Añasco</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Turismo</td><td>Julian Cadavid</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>Minería</td><td>JOHN JAIRO COLLAZOS PINZÓN</td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>Minería</td><td>LUIS ALFONSO FERNÁNDEZ BURBANO</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- SÁBADO 6 -->
-            <section id="sabado" class="schedule-content">
-                <div class="schedule-card">
-                    <div class="card-header">
-                        <h2>SÁBADO 6 / SEPTIEMBRE</h2>
-                        <button class="download-btn">⏬Descargar programación</button>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-1">TURNO 1: 9:00 AM - 01:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Minería</td><td>MONICA GOMEZ SANDOVAL</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Ruta 360</td><td>Liliana Perea</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Competitividad</td><td>Lilian Keline Bambague</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Comercialización</td><td>José Fernando Ruíz López</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Competitividad</td><td>Francy Riascos</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Proyecto de Fortalecimiento</td><td>Mayra Hinestroza</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Comercialización</td><td>Juan Diego Aza Arcos</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Angie Mosquera</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Comercialización</td><td>María Fernanda Montenegro Mera</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Comercialización</td><td>Daniela Choco</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Comercialización</td><td>Luz Elena Laverde Urrea</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Comercialización</td><td>Julio Pineda</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Minería</td><td>FRANCISCO JOSE IDROBO IDROBO</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Competitividad</td><td>Salir Yamile Obando</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-2">TURNO 2: 01:00 PM - 05:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Proyecto de Fortalecimiento</td><td>Mayra Hinestroza</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Comercialización</td><td>Andres Muñoz Simmonds</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Competitividad</td><td>Marcela Betancourth</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>CTI</td><td>Gladys Bastidas</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Minería</td><td>ANDRES JOSE GOMEZ</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Comercialización</td><td>Daniela Alejandra Mera Lopez</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Comercialización</td><td>Daniela Choco</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Competitividad</td><td>Lilian Keline Bambague</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Minería</td><td>LUZ YAMILET GALINDEZ GUERRERO</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Ruta 360</td><td>Liliana Perea</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Competitividad</td><td>Adriana Bolaños</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Lucy Pillimue</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Luis Acosta</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>Paola Mejia</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-3">TURNO 3: 05:00 PM - 09:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Comercialización</td><td>Daniela Alejandra Mera Lopez</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Ruta 360</td><td>Silvana Rosero</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Proyecto de Fortalecimiento</td><td>Yicel Rodriguez</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Ruta 360</td><td>Eimy Vidal</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Minería</td><td>DORA ELIZABETH CERÓN PARRA</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Minería</td><td>MONICA REGINA ORDOÑEZ ERAZO</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Proyecto de Fortalecimiento</td><td>Luis Acosta</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Comercialización</td><td>Andres Muñoz Simmonds</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Comercialización</td><td>José Fernando Ruíz López</td></tr>
-                                    <tr><td>Entrada 3 (zona acera)</td><td>Impulsador</td><td>Turismo</td><td>Julian Cadavid</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Comercialización</td><td>Luz Elena Laverde Urrea</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Comercialización</td><td>Juan Diego Aza Arcos</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Competitividad</td><td>Fernanda Alarcon</td></tr>
-                                    <tr><td>Zona General</td><td>Impulsador</td><td>Turismo</td><td>Daniel Añasco</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>Proyecto de Fortalecimiento</td><td>Carlos Betancourt</td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>CTI</td><td>David Mejia</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- DOMINGO 7 -->
-            <section id="domingo" class="schedule-content">
-                <div class="schedule-card">
-                    <div class="card-header">
-                        <h2>DOMINGO 7 / SEPTIEMBRE</h2>
-                        <button class="download-btn">⏬Descargar programación</button>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-1">TURNO 1: 9:00 AM - 01:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Comercialización</td><td>Andres Muñoz Simmonds</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>CTI</td><td>Jarvi Molano</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>CTI</td><td>Gladys Bastidas</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Competitividad</td><td>Marcela Betancourth</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Minería</td><td>JOSE FERNANDO SALDAÑA MOSQUERA</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Comercialización</td><td>Daniela Choco</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Comercialización</td><td>Juan Diego Aza Arcos</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Comercialización</td><td>Javier Mariano Mera Rivera</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-2">TURNO 2: 01:00 PM - 05:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Competitividad</td><td>Juliana Jimenez</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Proyecto de Fortalecimiento</td><td>Carlos Betancourt</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Empleo</td><td>Jeni Ruiz</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Minería</td><td>JOHN JAIRO COLLAZOS PINZÓN</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Minería</td><td>LUIS ALFONSO FERNÁNDEZ BURBANO</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Claudia Lopez</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Jhohana Saavedra</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Comercialización</td><td>Luz Elena Laverde Urrea</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Ruta 360</td><td>Silvana Rosero</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="turn-section">
-                        <h3 class="turn-title turn-3">TURNO 3: 05:00 PM - 09:00 PM</h3>
-                        <div class="schedule-table-container">
-                            <table class="schedule-table">
-                                <thead><tr><th>LUGAR</th><th>ROL</th><th>ÁREA</th><th>ENCARGADO</th></tr></thead>
-                                <tbody>
-                                    <tr><td>Parapente</td><td>Atención a usuarios</td><td>Proyecto de Fortalecimiento</td><td>Lucy Pillimue</td></tr>
-                                    <tr><td>Parapente</td><td>Organización de usuarios</td><td>Proyecto de Fortalecimiento</td><td>Luis Acosta</td></tr>
-                                    <tr><td>Parapente</td><td>Auxiliar de escenografía</td><td>Proyecto de Fortalecimiento</td><td>Paola Mejia</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Comercialización</td><td>Andres Felipe Samboni Perez</td></tr>
-                                    <tr><td>Carro eléctrico</td><td>Atención a usuarios e impulsador</td><td>Comercialización</td><td>Sebastian Restrepo</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Francy Riascos</td></tr>
-                                    <tr><td>Stand (LETRERO CAUCA - TRAJES TÍPICOS)</td><td>Punto Cauca</td><td>Competitividad</td><td>Fernanda Alarcon</td></tr>
-                                    <tr><td>Entrada 1 (via Parque Caldas)</td><td>Impulsador</td><td>Competitividad</td><td>Adriana Bolaños</td></tr>
-                                    <tr><td>Entrada 2 (via Teatro Municipal Guillermo Valencia)</td><td>Impulsador</td><td>Proyecto de Fortalecimiento</td><td>José Enriquez</td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Stand SDEC - Pabellón</td><td>Punto Turístico</td><td></td><td></td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>Proyecto de Fortalecimiento</td><td>José Enriquez</td></tr>
-                                    <tr><td>Zona General</td><td>Vigilancia y Varios</td><td>Minería</td><td>ANDRES JOSE GOMEZ</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <ul class="card-grid" id="card-container">
+                <!-- Las tarjetas se insertarán aquí dinámicamente -->
+            </ul>
         </main>
     </div>
 
-    <!-- Modal de Búsqueda -->
-    <div id="search-modal" class="modal-overlay">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div id="modal-results">
-                <h3>Resultados de la Búsqueda</h3>
-                <ul id="modal-results-list"></ul>
-            </div>
-        </div>
-    </div>
-
-
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- SELECCIÓN DE ELEMENTOS ---
-        const buttons = document.querySelectorAll('.day-btn');
-        const schedules = document.querySelectorAll('.schedule-content');
-        const searchInput = document.getElementById('search-input');
-        const modal = document.getElementById('search-modal');
-        const modalClose = document.querySelector('.modal-close');
-        const modalResultsList = document.getElementById('modal-results-list');
-        
-        // --- NAVEGACIÓN POR DÍAS ---
-        buttons.forEach(button => {
-            button.addEventListener('click', () => {
-                buttons.forEach(btn => btn.classList.remove('active'));
-                schedules.forEach(schedule => schedule.classList.remove('active'));
-                button.classList.add('active');
-                const day = button.getAttribute('data-day');
-                document.getElementById(day).classList.add('active');
+        // Array de objetos con la información de los sitios web
+        const sites = [
+            {
+                title: 'Congreso gastrómico',
+                description: 'Programación del equipo de trabajo para la participación en el Pabellón de Turismo.',
+                url: 'https://www.sdec-cauca.github.io/gastronomico'
+            },
+        ];
+
+        // Función para crear las tarjetas y añadirlas al DOM
+        function createCards() {
+            const container = document.getElementById('card-container');
+
+            sites.forEach(site => {
+                // Crear los elementos de la tarjeta
+                const listItem = document.createElement('li');
+                listItem.classList.add('card');
+
+                const link = document.createElement('a');
+                link.href = site.url;
+                link.target = '_blank'; // Para abrir en una nueva pestaña
+                link.rel = 'noopener noreferrer';
+
+                const title = document.createElement('h2');
+                title.textContent = site.title;
+
+                const description = document.createElement('p');
+                description.textContent = site.description;
+
+                // Estructurar la tarjeta
+                link.appendChild(title);
+                link.appendChild(description);
+                listItem.appendChild(link);
+
+                // Añadir la tarjeta al contenedor en el HTML
+                container.appendChild(listItem);
             });
-        });
+        }
 
-        // --- FUNCIONALIDAD DE BÚSQUEDA ---
-        const performSearch = () => {
-            const query = searchInput.value.trim().toLowerCase();
-            if (query.length < 2) {
-                if (modal.style.display === 'block') modal.style.display = 'none';
-                return;
-            }
-
-            let results = [];
-            document.querySelectorAll('.schedule-table tbody tr').forEach(row => {
-                const encargadoCell = row.querySelector('td:last-child');
-                if (encargadoCell) {
-                    const encargadoName = encargadoCell.textContent.trim().toLowerCase();
-                    if (encargadoName.includes(query)) {
-                        const dayTitle = row.closest('.schedule-card').querySelector('h2').textContent;
-                        const turnTitle = row.closest('.turn-section').querySelector('h3').textContent;
-                        const rol = row.querySelector('td:nth-child(2)').textContent; // Ajustado para la segunda columna (ROL)
-                        const lugar = row.querySelector('td:first-child').textContent; // Tomamos el lugar de la primera columna
-                        results.push({ day: dayTitle, turn: turnTitle, rol: rol, lugar: lugar, name: encargadoCell.textContent.trim() });
-                    }
-                }
-            });
-            displayResults(results, searchInput.value.trim());
-        };
-
-        const displayResults = (results, query) => {
-            modalResultsList.innerHTML = ''; // Limpiar resultados
-            const resultHeader = modalResultsList.previousElementSibling;
-
-            if (results.length > 0) {
-                const uniqueNames = [...new Set(results.map(res => res.name))];
-                const personName = uniqueNames.join(', ');
-                resultHeader.innerHTML = `Programación para: <strong>${personName}</strong>`;
-                
-                results.forEach(res => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `
-                        <div class="result-day">${res.day}</div>
-                        <div class="result-turn">${res.turn}</div>
-                        <div><strong>Lugar:</strong> ${res.lugar}</div>
-                        <div><strong>Rol:</strong> ${res.rol}</div>
-                    `;
-                    modalResultsList.appendChild(li);
-                });
-            } else {
-                 resultHeader.textContent = 'Resultados de la Búsqueda';
-                 modalResultsList.innerHTML = `<p style="text-align:center;">No se encontraron resultados para "<strong>${query}</strong>".</p>`;
-            }
-            modal.style.display = 'block';
-        };
-
-        searchInput.addEventListener('keyup', (event) => {
-            if (event.key === 'Enter') performSearch();
-        });
-        
-        // Cierra el modal
-        const closeModal = () => { modal.style.display = 'none'; };
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', (event) => { if (event.target === modal) closeModal(); });
-
-        // --- DESCARGAR COMO IMAGEN ---
-        document.querySelectorAll('.download-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const cardToCapture = e.target.closest('.schedule-card');
-                const dayTitle = cardToCapture.querySelector('h2').textContent.split('/')[0].trim().replace(/\s+/g, '-');
-                const tableContainers = cardToCapture.querySelectorAll('.schedule-table-container');
-
-                // Guardar estilos originales
-                const originalCardWidth = cardToCapture.style.width;
-                const originalContainerOverflows = [];
-                tableContainers.forEach(c => originalContainerOverflows.push(c.style.overflowX));
-
-                // Aplicar estilos temporales para la captura
-                cardToCapture.style.width = '1200px'; // Ancho de escritorio
-                tableContainers.forEach(c => c.style.overflowX = 'visible');
-
-                html2canvas(cardToCapture, {
-                    scale: 2,
-                    useCORS: true,
-                    logging: false,
-                    backgroundColor: '#ffffff'
-                }).then(canvas => {
-                    // Descargar la imagen
-                    const link = document.createElement('a');
-                    link.download = `Programacion-${dayTitle}.png`;
-                    link.href = canvas.toDataURL('image/png');
-                    link.click();
-
-                    // Revertir estilos a los originales
-                    cardToCapture.style.width = originalCardWidth;
-                    tableContainers.forEach((c, index) => c.style.overflowX = originalContainerOverflows[index]);
-                }).catch(err => {
-                    console.error("Error al generar la imagen:", err);
-                    // Revertir estilos en caso de error
-                    cardToCapture.style.width = originalCardWidth;
-                    tableContainers.forEach((c, index) => c.style.overflowX = originalContainerOverflows[index]);
-                });
-            });
-        });
-    });
+        // Llamar a la función cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', createCards);
     </script>
+
 </body>
 </html>
