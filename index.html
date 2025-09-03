@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SECRETARÍA DE DESARROLLO ECONÓMICO Y COMPETITIVIDAD</title>
+    <style>
+        /* Estilos Generales */
+        :root {
+            --background-color: #f4f7f6;
+            --card-background-color: #ffffff;
+            --text-color: #333333;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --accent-color: #007bff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        /* Contenedor Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Encabezado */
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header-logo {
+            width: 320px;
+            height: 180px;
+            border-radius: 32px;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            display: block;
+            background-color: rgba(255,255,255,0.2);
+            border: 3px solid rgba(255,255,255,0.7);
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin: 0;
+        }
+
+        /* Cuadrícula de Tarjetas */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* Estilo de las Tarjetas */
+        .card {
+            background-color: var(--card-background-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px var(--shadow-color);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            padding: 1.5rem;
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="https://www.cauca.gov.co/SiteAssets/GobernacionCauca/assets/img/ImgGobCauca/inconosGobernacionHD/Logos-Gobernacio%CC%81n-del-Cauca-horizontal.png" alt="Logo del Evento" class="header-logo">
+            <h1>SECRETARÍA DE DESARROLLO ECONÓMICO Y COMPETITIVIDAD</h1>
+        </header>
+
+        <main>
+            <ul class="card-grid" id="card-container">
+                <!-- Las tarjetas se insertarán aquí dinámicamente -->
+            </ul>
+        </main>
+    </div>
+
+    <script>
+        // Array de objetos con la información de los sitios web
+        const sites = [
+            {
+                title: 'Congreso gastrómico',
+                description: 'Programación del equipo de trabajo para la participación en el Pabellón de Turismo.',
+                url: 'https://www.sdec-cauca.github.io/gastronomico'
+            },
+        ];
+
+        // Función para crear las tarjetas y añadirlas al DOM
+        function createCards() {
+            const container = document.getElementById('card-container');
+
+            sites.forEach(site => {
+                // Crear los elementos de la tarjeta
+                const listItem = document.createElement('li');
+                listItem.classList.add('card');
+
+                const link = document.createElement('a');
+                link.href = site.url;
+                link.target = '_blank'; // Para abrir en una nueva pestaña
+                link.rel = 'noopener noreferrer';
+
+                const title = document.createElement('h2');
+                title.textContent = site.title;
+
+                const description = document.createElement('p');
+                description.textContent = site.description;
+
+                // Estructurar la tarjeta
+                link.appendChild(title);
+                link.appendChild(description);
+                listItem.appendChild(link);
+
+                // Añadir la tarjeta al contenedor en el HTML
+                container.appendChild(listItem);
+            });
+        }
+
+        // Llamar a la función cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', createCards);
+    </script>
+
+</body>
+</html>
