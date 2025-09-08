@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SECRETARÍA DE DESARROLLO ECONÓMICO Y COMPETITIVIDAD</title>
+
+    <!-- Favicon de Cohete (Incrustado en Base64 para no depender de archivos externos) -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23007bff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l-3 9 9-3 5.5-5.5a9.9 9.9 0 00-4-4L6 12z'/%3E%3Cpath d='M12 6l4-4 3 3-4 4'/%3E%3Cpath d='M9 15l-3 3'/%3E%3C/svg%3E">
+
     <style>
-        /* Estilos Generales */
+        /* Estilos Generales y Variables CSS */
         :root {
-            --background-color: #f4f7f6;
+            --primary-color: #002a57;
+            --secondary-color: #007bff;
+            --background-color: #f8f9fa;
             --card-background-color: #ffffff;
-            --text-color: #333333;
-            --shadow-color: rgba(0, 0, 0, 0.1);
-            --accent-color: #007bff;
+            --text-color: #343a40;
+            --subtle-text-color: #6c757d;
+            --border-color: #aaaaaa;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --shadow-hover-color: rgba(0, 0, 0, 0.15);
         }
 
         body {
@@ -20,6 +28,7 @@
             padding: 2rem;
             background-color: var(--background-color);
             color: var(--text-color);
+            line-height: 1.6;
         }
 
         /* Contenedor Principal */
@@ -35,70 +44,157 @@
         }
 
         .header-logo {
-            width: 320px;
-            height: 180px;
-            border-radius: 32px;
-            object-fit: cover;
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            border-radius: 16px;
             margin: 0 auto 1.5rem;
             display: block;
-            background-color: rgba(255,255,255,0.2);
-            border: 3px solid rgba(9, 0, 44, 0.911);
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.5rem); /* Tamaño de fuente adaptable */
+            font-weight: 700;
+            color: var(--primary-color);
             margin: 0;
+        }
+        
+        /* Controles de Búsqueda y Filtro */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .search-wrapper {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem; /* Espacio para el ícono */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        }
+
+        .search-wrapper::before {
+            content: '🔍';
+            position: absolute;
+            left: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-background-color);
+            color: var(--text-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: #e9ecef;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
         }
 
         /* Cuadrícula de Tarjetas */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
             gap: 1.5rem;
             padding: 0;
             list-style: none;
         }
 
-        /* Estilo de las Tarjetas */
         .card {
             background-color: var(--card-background-color);
             border-radius: 12px;
-            border: 1px solid rgb(141, 141, 141);
-            box-shadow: 0 4px 12px var(--shadow-color);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 8px var(--shadow-color);
             overflow: hidden;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* Para controlar la altura */
+            flex-direction: column;
+        }
+        
+        .card.hidden {
+            display: none;
         }
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 8px 16px var(--shadow-hover-color);
         }
 
         .card a {
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: flex;
+            flex-direction: column;
             padding: 1.5rem;
+            flex-grow: 1; /* El enlace ocupa todo el espacio */
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
         }
 
         .card h2 {
             font-size: 1.25rem;
-            margin: 0 0 0.5rem 0;
+            margin: 0;
+            color: var(--primary-color);
+        }
+
+        .card .icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            opacity: 0.8;
         }
 
         .card p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             line-height: 1.5;
             margin: 0;
-            opacity: 0.7;
+            color: var(--subtle-text-color);
+            flex-grow: 1; /* Empuja el footer hacia abajo */
         }
 
-                /* --- Responsividad --- */
+        /* --- Responsividad --- */
         @media (max-width: 768px) {
-            .container { padding: 0.4rem; }
-            .header-logo { width: 220px; height: auto; }
-            .header h1 { font-size: 1.1rem; }
+            body { padding: 1rem; }
+            .controls { flex-direction: column; align-items: stretch; }
+            .filter-buttons { justify-content: center; }
         }
     </style>
 </head>
@@ -106,11 +202,24 @@
 
     <div class="container">
         <header>
-            <img src="https://www.cauca.gov.co/SiteAssets/GobernacionCauca/assets/img/ImgGobCauca/inconosGobernacionHD/Logos-Gobernacio%CC%81n-del-Cauca-horizontal.png" alt="Logo del Evento" class="header-logo">
+            <img src="https://www.cauca.gov.co/SiteAssets/GobernacionCauca/assets/img/ImgGobCauca/inconosGobernacionHD/Logos-Gobernacio%CC%81n-del-Cauca-horizontal.png" alt="Logo Gobernación del Cauca" class="header-logo">
             <h1>SECRETARÍA DE DESARROLLO ECONÓMICO Y COMPETITIVIDAD</h1>
         </header>
 
         <main>
+            <!-- Controles de Búsqueda y Filtro -->
+            <div class="controls">
+                <div class="search-wrapper">
+                    <input type="search" id="search-input" placeholder="Buscar por título o descripción...">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="evento">Eventos</button>
+                    <button class="filter-btn" data-filter="reporte">Reportes</button>
+                </div>
+            </div>
+            
+            <!-- Contenedor para las tarjetas -->
             <ul class="card-grid" id="card-container">
                 <!-- Las tarjetas se insertarán aquí dinámicamente -->
             </ul>
@@ -118,52 +227,92 @@
     </div>
 
     <script>
-        // Array de objetos con la información de los sitios web
-        const sites = [
-            {
-                title: 'Congreso gastronómico',
-                description: 'Programación del equipo de trabajo para la participación en el Pabellón de Turismo.',
-                url: 'https://sdec-cauca.github.io/gastronomico'
-            },
-            {
-                title: 'Ferias',
-                description: 'Mini reporte del proyecto de comercialización y ferias - SEPTIEMBRE 2025',
-                url: 'https://sdec-cauca.github.io/ferias'
-            },
-        ];
+        document.addEventListener('DOMContentLoaded', () => {
+            // Datos de los sitios con una nueva propiedad "category"
+            const sites = [
+                {
+                    title: 'Congreso Gastronómico',
+                    description: 'Programación del equipo de trabajo para la participación en el Pabellón de Turismo.',
+                    url: 'https://sdec-cauca.github.io/gastronomico',
+                    category: 'evento'
+                },
+                {
+                    title: 'Ferias y Mercados',
+                    description: 'Mini reporte del proyecto de comercialización y ferias - SEPTIEMBRE 2025.',
+                    url: 'https://sdec-cauca.github.io/ferias',
+                    category: 'reporte'
+                },
+                /*{
+                    title: 'Rueda de Negocios TIC',
+                    description: 'Conectando emprendedores del sector tecnológico con inversores y clientes potenciales.',
+                    url: '#',
+                    category: 'evento'
+                },
+                {
+                    title: 'Informe Anual de Competitividad',
+                    description: 'Análisis de los indicadores económicos y de competitividad del departamento.',
+                    url: '#',
+                    category: 'reporte'
+                },*/
+            ];
 
-        // Función para crear las tarjetas y añadirlas al DOM
-        function createCards() {
             const container = document.getElementById('card-container');
+            const searchInput = document.getElementById('search-input');
+            const filterButtons = document.querySelectorAll('.filter-btn');
 
-            sites.forEach(site => {
-                // Crear los elementos de la tarjeta
-                const listItem = document.createElement('li');
-                listItem.classList.add('card');
+            // Función para renderizar las tarjetas en el DOM
+            const renderCards = (filteredSites) => {
+                container.innerHTML = ''; // Limpiar el contenedor antes de renderizar
+                if (filteredSites.length === 0) {
+                    container.innerHTML = '<p>No se encontraron resultados.</p>';
+                    return;
+                }
 
-                const link = document.createElement('a');
-                link.href = site.url;
-                link.target = '_blank'; // Para abrir en una nueva pestaña
-                link.rel = 'noopener noreferrer';
+                filteredSites.forEach(site => {
+                    const cardHTML = `
+                        <li class="card" data-category="${site.category}">
+                            <a href="${site.url}" target="_blank" rel="noopener noreferrer">
+                                <div class="card-header">
+                                    <h2>${site.title}</h2>
+                                    <span class="icon">🚀</span>
+                                </div>
+                                <p>${site.description}</p>
+                            </a>
+                        </li>
+                    `;
+                    container.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            };
 
-                const title = document.createElement('h2');
-                title.textContent = site.title;
+            // Función principal para filtrar y buscar
+            const filterAndSearch = () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
 
-                const description = document.createElement('p');
-                description.textContent = site.description;
+                const filteredSites = sites.filter(site => {
+                    const matchesCategory = activeFilter === 'all' || site.category === activeFilter;
+                    const matchesSearch = site.title.toLowerCase().includes(searchTerm) || site.description.toLowerCase().includes(searchTerm);
+                    return matchesCategory && matchesSearch;
+                });
 
-                // Estructurar la tarjeta
-                link.appendChild(title);
-                link.appendChild(description);
-                listItem.appendChild(link);
+                renderCards(filteredSites);
+            };
 
-                // Añadir la tarjeta al contenedor en el HTML
-                container.appendChild(listItem);
+            // Event listener para la barra de búsqueda
+            searchInput.addEventListener('input', filterAndSearch);
+
+            // Event listeners para los botones de filtro
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    filterAndSearch();
+                });
             });
-        }
 
-        // Llamar a la función cuando el DOM esté cargado
-        document.addEventListener('DOMContentLoaded', createCards);
+            // Renderizar todas las tarjetas al cargar la página
+            renderCards(sites);
+        });
     </script>
 
 </body>
